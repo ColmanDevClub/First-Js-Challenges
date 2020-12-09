@@ -5,56 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Rock, Paper, Scissors</title>
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@100&display=swap" rel="stylesheet">
+ 
   </head>
+
   <body>
 
-    <header class="header__container">
-      <h1 class="RPS">
-       <img src="assets/images/logo.svg" alt="RPG" class="header">
-       </h1>
+    
+  
+      <div class= "Header-Container">
+          <h1 class="RPS">
+             <img src="assets/images/logo.svg" class="RPS-img">
+          </h1>
 
-        <div class="score_containrer">
-        Score
-           0
+          <div class="score">
+              <div class="score-name">
+               Score
+              </div>
+              <div class="num">
+                  12
+               </div>
 
-          </div>
-   
-
-
-    </header>
-
-
-      <div class="RPS_container">
-          <button class="RPS__cont paper__color ">
-            <img src="assets/images/icon-paper.svg" alt="paper" class="icon_paper">
-          </button>
-          <button class="RPS__cont rock__color ">
-            <img src="assets/images/icon-rock.svg" alt="rock" class="icon_paper">
-          </button>
-          <button class="RPS__cont scissors__color ">
-            <img src="assets/images/icon-scissors.svg" alt="scissors" class="icon_paper">
-            
-          </button>
-
+           </div>
       </div>
+ 
 
+      
+    <div class = "RPS-containers">
 
-         <button class="btn">
-            <span class="btn">Rules</span>
-
-
+        <button class=" Paper-Button ">
+          <span class=" button-shape ">
+          <img src="assets/images/icon-paper.svg" class="Paper-icon"/>
+        </span>
         </button>
 
+        <div class="tringle">
+          <img src="assets/images/bg-triangle.svg" class="Paper-icon"/>
+          
+        </div>
+
+       <button class=" Rock-Button">
+          <span class=" button-shape ">
+          <img src="assets/images/icon-rock.svg" class="Rock-icon" />
+        </span>
+        </button>
+
+          <button class="Scissors-Button" >
+          <span class="button-shape">
+           <img src="assets/images/icon-scissors.svg" class="Scissors-icon" />
+          </span>
+         </button>
+
+        </div>
 
 
 
+<div class="Rules">
+<button class ="Rules-Button">
 
-   
-   
-  
-    You picked
-    You win
-    Play again
-    The House Picked
+  <span class="Rules-Text">Rules</span>
+
+</button>
+
+</div>    
+    
   </body>
+
 </html>

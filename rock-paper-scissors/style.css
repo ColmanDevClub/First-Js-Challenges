@@ -1,0 +1,222 @@
+
+
+
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+body{
+
+   
+    background-image: radial-gradient(circle at 50% 10% ,hsl(214, 47%, 23%) , hsl(237, 49%, 15%)) ;
+    background-repeat: no-repeat ;
+     min-height: 100vh;
+     font-size: 62.5%;
+     padding-top: 50px;
+     font-family:'Barlow Semi Condensed', sans-serif;
+    
+    
+   
+}
+
+
+.Header-Container{
+   
+    display: flex;
+    
+    justify-content:space-around ;
+    align-items: center;
+    border-color:  hsl(217, 16%, 45%);
+    border-style: solid;
+    border-width: 3px;
+    border-radius:10px;
+    
+    padding-top: 15px;
+    height: 8rem;
+    width: 40rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 7rem;
+     
+
+}
+
+.RPS{
+    margin-right: 15rem;
+    
+    
+    
+}
+
+
+.score{
+    
+    background-color: #FFFFFF;
+    padding: 1.1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    width: 8rem;
+    text-align: center;
+    font-weight: 600;
+    margin-left: 2rem;
+}
+
+.score-name{
+    font-size: 1rem;
+    color: hsl(229, 64%, 46%);
+    font-weight: 600;
+    
+}
+
+.num{
+
+    color:#4F637C;
+    font-size: 2.5rem;
+    font-weight: bolder;
+   
+}
+
+
+
+
+.RPS-containers{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+    position: relative;
+    width: 30rem;
+    height: 19rem;
+    margin: 4rem auto;
+    
+     
+
+
+   
+
+}
+
+.button-shape{
+    background-color: #fff;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    height: 130px;
+    width: 130px;
+    align-items: center;
+    box-shadow: inset 0 1px 1rem 4px rgba(0,0,0,.3);
+   
+    
+
+    
+
+
+    
+
+}
+
+.Rock-Button
+{
+    border:none;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 170px;
+    width: 170px;
+    background-image: linear-gradient( to bottom, hsl(349, 71%, 52%) , hsl(349, 70%, 56%));
+    ;
+    position: absolute;
+    bottom: 0rem;
+    box-shadow: 0 8px 1px 1px hsl(349, 71%, 52%);
+    
+    
+}
+    
+
+
+
+
+.Paper-Button{
+
+    border:none;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 170px;
+    width: 170px;
+    background-image: linear-gradient(to bottom, hsl(230, 89%, 62%), hsl(230, 89%, 65%));
+    ;
+    position: absolute;
+    bottom: 12rem;
+    left: 2rem;
+    box-shadow: 0 8px 1px 1px hsl(230, 89%, 62%);
+
+
+
+
+}
+
+
+.Scissors-Button{
+    border:none;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 170px;
+    width: 170px;
+    background-image:linear-gradient(to bottom, hsl(261, 73%, 60%) , hsl(261, 72%, 63%));
+    position: absolute;
+    bottom: 12rem;
+    right: 2rem;
+    box-shadow: 0 8px 1px 1px hsl(261, 73%, 60%);
+ 
+
+
+
+    
+}
+
+.Rules{
+    display: flex;
+    align-content:flex-end;
+    justify-content: flex-end;
+    margin-top: 6rem;   
+    
+}
+
+
+.Rules-Button{
+
+    display: flex;
+    align-items: center;
+    background: none;
+    padding: 15px;
+    width: 7rem;
+    height: 0;
+    border-color:#fff;
+
+    outline: none;
+    color: #fff;
+    border-radius: 0.5rem;
+    border-width: 1px;
+    margin-right: 2rem;
+    margin-top: -2rem;
+    
+    border-style: solid;
+    cursor: pointer;
+   
+}
+
+.Rules-Text{
+    text-align: center;
+    font-weight: 300;
+    font-size: 1rem;
+    margin-left: 1rem;
+    font-family: inherit;
+
+    
+}
+
+
+
+
