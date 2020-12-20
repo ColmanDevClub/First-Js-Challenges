@@ -1,0 +1,16 @@
+body{
+    background-color: linear-gradient(circle at 50% 10%, hsl(214, 47%, 23%), hsl(237, 49%, 15%));
+}
+
+.header{
+    text-align: center;
+    margin-top: 5rem;
+}
+
+.logo{
+    display: inline-block;
+}
+
+.score{
+    display: inline-block;
+}
