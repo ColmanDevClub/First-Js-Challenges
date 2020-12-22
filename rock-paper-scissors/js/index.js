@@ -80,15 +80,18 @@ var UIController = (function() {
 
         if(icon === 'rock'){
             image.src = "./assets/images/icon-rock.svg";
+            element.className = "btn-circle btn-rock";
 
         }
 
         else if(icon === 'paper'){
             image.src = "./assets/images/icon-paper.svg";
+            element.className = "btn-circle btn-paper";
         }
 
         else{
             image.src = "./assets/images/icon-scissors.svg";
+            element.className = "btn-circle btn-scissors";
         }
 
         newElement.appendChild(image);
@@ -132,6 +135,7 @@ var UIController = (function() {
             if(status !== MatchController.getStatus()[2]){
                 document.getElementById('winner').innerHTML = status;
             }
+            
         },
 
 
