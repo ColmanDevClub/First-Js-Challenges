@@ -6,7 +6,9 @@
     <title>Rock, Paper, Scissors</title>
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
     <!-- CSS FILES -->
-    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/index.css"/> 
+    <!-- <link href="" -->
+    <script src="index.js" defer></script>
   </head>
   <body>
 
@@ -25,15 +27,17 @@
       <!-- Main container  -->
       <main id='main'>
         <!-- Buttons -->
-        <button class="btn-circle btn-paper pick" data-choice="paper">
-          <span class="image-wrapper"> <img src="./assets/images/icon-paper.svg" alt="paper-icon"> </span>
+        <button class="btn-circle btn-paper pick" data-choice="paper" onclick="choosePaper()">
+          <span class="image-wrapper">
+             <img src="./assets/images/icon-paper.svg" alt="paper-icon"> 
+            </span>
         </button>
         <button class="btn-circle btn-scissors pick" data-choice="scissors">
           <span class="image-wrapper">
           <img src="./assets/images/icon-scissors.svg" alt="Scissors-icon">
           </span>
         </button>
-        <button class="btn-circle btn-rock pick" data-choice="rock">
+        <button class="btn-circle btn-rock pick" data-choice="rock" onclick="chooseRock()">
           <span class="image-wrapper">
             <img src="./assets/images/icon-rock.svg" alt="rock-icon">
           </span>
@@ -71,6 +75,6 @@
     </div>
 
     <!-- scripts -->
-    <script src="js/index.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>
