@@ -5,33 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Rock, Paper, Scissors</title>
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+    <!-- CSS FILES -->
+    <link rel="stylesheet" href="./assets/design/style.css"/>
+
   </head>
   <body>
 
+    <!-- Page container -->
+    <div class="container">
 
-    <header>
-      <div class="jook">
-        <img src= "rock-paper-scissors/assets/images/logo.svg" alt="ROCK" class="rock jook">
+      <!-- Header -->
+      <header>
+       <img src='./assets/images/logo.svg'>
+        <div class="score-container">
+          <h4>Score</h4>
+          <p id="score">0</p>
+        </div>
+      </header>
+
+      <!-- Main container  -->
+      <main id='main'>
+        <!-- Buttons -->
+        <button class="btn-circle btn-paper pick" data-choice="paper">
+          <span class="image-wrapper"> <img src="./assets/images/icon-paper.svg" alt="paper-icon"> </span>
+        </button>
+        <button class="btn-circle btn-scissors pick" data-choice="scissors">
+          <span class="image-wrapper">
+          <img src="./assets/images/icon-scissors.svg" alt="Scissors-icon">
+          </span>
+        </button>
+        <button class="btn-circle btn-rock pick" data-choice="rock">
+          <span class="image-wrapper">
+            <img src="./assets/images/icon-rock.svg" alt="rock-icon">
+          </span>
+        </button>
+      </main>
+
+      <!-- Rules -->
+      <div class="rules-modal" id="modal">
+        <div class="modal">
+          <img src="./assets/images/image-rules.svg" alt="rules">
+          <button id="close"><img src="./assets/images/icon-close.svg" alt="close"></button>
+        </div>
       </div>
-      <div class="score">Score</div>
-    </header>
-    
-    <div class="circle">
+      <button class="btn-rules" id="open">Rules</button>
+    </div>
 
-      <div class="circle-rock triangular">
-        <img src= "assets/images/icon-rock.svg" alt="ROCK" class="rock">
+    <!-- Result Page -->
+    <div class='selection' id='selection'>
+      <div>
+        <h2>You picked</h2>
+        <button class="btn-circle" id='user_select'>
+          <span class="image-wrapper"> <img class="picUser" src="./assets/images/icon-paper.svg" alt="paper-icon"> </span>
+        </button>
       </div>
-
-      <div class="circle-paper triangular">
-        <img src= "assets/images/icon-paper.svg" alt="PAPER" class="paper">
+      <div class="go-down">
+        <p class="big-text">You <span id="winner">win</span></p>
+        <button class="btn" id="reset">Play again</button>
       </div>
-
-      <div class="circle-scissors triangular">
-        <img src= "assets/images/icon-scissors.svg" alt="SCISSORS" class="scissors">
+      <div>
+        <h2>The House Picked</h2>
+        <button class="btn-circle" id="computer_select">
+          <span class="image-wrapper"> <img class="picComp" src="./assets/images/icon-rock.svg" alt="rock-icon"> </span>
+        </button>
       </div>
     </div>
 
-    <div class="rules">Rules</div>
-  
+    <!-- scripts -->
+    <script src="script.js"></script>
   </body>
 </html>
