@@ -16,6 +16,6 @@ else{
 
 document.querySelector('.btn-circle').addEventListener('click', function(){
     if(userChoice === CompChoice){
-
+         
     }
 }
