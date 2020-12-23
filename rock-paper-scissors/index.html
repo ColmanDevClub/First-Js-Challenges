@@ -25,15 +25,15 @@
       <!-- Main container  -->
       <main id='main'>
         <!-- Buttons -->
-        <button class="btn-circle btn-paper pick" data-choice="paper">
+        <button class="btn-circle btn-paper pick" data-choice="paper" id="button1">
           <span class="image-wrapper"> <img src="./assets/images/icon-paper.svg" alt="paper-icon"> </span>
         </button>
-        <button class="btn-circle btn-scissors pick" data-choice="scissors">
+        <button class="btn-circle btn-scissors pick" data-choice="scissors" id="button2">
           <span class="image-wrapper">
           <img src="./assets/images/icon-scissors.svg" alt="Scissors-icon">
           </span>
         </button>
-        <button class="btn-circle btn-rock pick" data-choice="rock">
+        <button class="btn-circle btn-rock pick" data-choice="rock" id="button3">
           <span class="image-wrapper">
             <img src="./assets/images/icon-rock.svg" alt="rock-icon">
           </span>
@@ -62,7 +62,7 @@
         <p class="big-text">You <span id="winner">win</span></p>
         <button class="btn" id="reset">Play again</button>
       </div>
-      <div>
+      <div id=housegame>
         <h2>The House Picked</h2>
         <button class="btn-circle btn-rock" id="computer_select">
           <span class="image-wrapper"> <img src="./assets/images/icon-rock.svg" alt="rock-icon"> </span>
