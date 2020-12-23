@@ -61,46 +61,38 @@ function checkWhoWinGameOn(compChoise, usChoise) {
  {
    '.big-text'.innerHTML = results[1];
  }
- if (compChoise === "rock")
+ if (compChoise === "rock" && usChoise === selections[1])
  {
-   if (usChoise === selections[1])
-   {
      updateScore(1);
      '.big-text'.innerHTML = results[0];
    }
-   if (usChoise === selections[2])
+   if (usChoise === selections[2]&& compChoise === "rock")
    {
      updateScore(-1);
      '.big-text'.innerHTML = results[2];
    }
- }
+ 
 
- if (compChoise === "scissors")
- {
-   if (usChoise === selections[0])
+   if (usChoise === selections[0]&&compChoise === "scissors")
    {
     updateScore(1);
     '.big-text'.innerHTML = results[0];
    }
-   if (usChoise === selections[1])
+   if (usChoise === selections[1]&&compChoise === "scissors")
    {
     updateScore(-1);
     '.big-text'.innerHTML = results[2];
    }
- }
-
- if (compChoise === "paper")
- {
-   if (usChoise === selections[1])
+ 
+   if (usChoise === selections[1]&&compChoise === "paper")
    {
     updateScore(-1);
     '.big-text'.innerHTML = results[2];
    }
-   if (usChoise === selections[2])
+   if (usChoise === selections[2]&compChoise === "paper")
    {
     updateScore(1);
     '.big-text'.innerHTML = results[0];
-   }
  }
 
 }
