@@ -7,7 +7,7 @@ document.getElementById('main').style.display='none';
 document.getElementById('selection').style.display='flex';
 document.getElementById('computer_select').style.display='none';
 document.querySelector('user_select').style.src='./assets/images/icon-paper.svg';
- }));
+ }));     
  if(document.querySelector('.btn-rock')
  .addEventListener('click',function(){
     document.getElementById('main').style.display='none';
