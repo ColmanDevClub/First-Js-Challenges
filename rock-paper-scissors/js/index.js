@@ -126,6 +126,22 @@ var HouseController = (function()
 
     picks = ['paper', 'scissors', 'rock'];
 
+    var pickMap = {
+        'rock': 0,
+        'paper': 1,
+        'scissors': 2
+    };
+
+    var base3Calc = function(firstNum, SecondNum)
+    {
+        var result = firstNum - SecondNum;
+        if(result < 0)
+        {
+            return result + 3; 
+        }
+        return result % 3;
+    };
+
     return {
         generatePick: function()
         {
@@ -135,34 +151,17 @@ var HouseController = (function()
 
         compare: function(housePick, playerPick)
         {
-            switch(playerPick){
-                case 'paper':
-                    switch(housePick){
-                        case 'paper':
-                            return 'draw';
-                        case 'scissors':
-                            return 'House Won';
-                        case 'rock':
-                            return 'You Won';
-                    }
-                case 'scissors':
-                    switch(housePick){
-                        case 'paper':
-                            return 'You Won';
-                        case 'scissors':
-                            return 'draw';
-                        case 'rock':
-                            return 'House Won';
-                    }
-                case 'rock':
-                    switch(housePick){
-                        case 'paper':
-                            return 'House Won';
-                        case 'scissors':
-                            return 'You Won';
-                        case 'rock':
-                            return 'draw';
-                    }
+            var result;
+            result = base3Calc(pickMap[playerPick], pickMap[housePick]);
+            
+            switch (result)
+            {
+                case 0:
+                    return 'draw';
+                case 1:
+                    return 'You Won';
+                case 2:
+                    return 'House Won';
             }
         }
     };
