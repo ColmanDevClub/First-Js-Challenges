@@ -1,143 +1,121 @@
 
 var MatchController = (function() {
 
-    var selections = ['paper', 'scissors', 'rock'];
-    var status = ['win', 'lose', 'tie'];
+    var selections = [{
+        name: 'paper',
+        defeatedBy: 'scissors',
+        win: 'rock'
+    },
     
-    var checkWin= function (user, computer){
-        //console.log('User:' + user + ' ' + 'Computer:' + computer);
-        
-        if(user === computer){  // It'a a tie
-            return status[2];
-        }
+    {
+        name: 'rock',
+        defeatedBy: 'paper',
+        win: 'scissors'
+    },
+    
+    {
+        name: 'scissors',
+        defeatedBy: 'rock',
+        win: 'paper'
+    }];
+    
+    var isWin= function (user, computer){
 
-        else{
-
-            // User -- Paper
-            if(user === selections[0]){
-                if(computer === selections[1]){
-                    return status[1];
-                }
-
-                else if(computer === selections[2]){
-                    return status[0];
-                }
-            }
-            
-            // User -- Scissors
-            if(user === selections[1]){
-                if(computer === selections[0]){
-                    return status[0];
-                }
-
-                else if(computer === selections[2]){
-                    return status[1];
-                }
-            }
-
-            // User -- Rock
-            if(user === selections[2]){
-                if(computer === selections[0]){
-                    return status[1];
-                }
-
-                else if(computer === selections[1]){
-                    return status[0];
-                }
-            }
-        }  
+        if(user.defeatedBy === computer.name){ return false; }
+        else if(user.name === computer.name){ return "tie"; }
+        else { return true; }
     };
 
-
     return {
-
-        getSelections: function (){
-            return selections;
+        getSelectByName: function (input){
+            for(var select of selections){
+                if(select.name === input){ return select};
+            }
         },
 
-        getStatus: function(){
-            return status;
+        getSelectByIndex: function (index){
+            return selections[index];
         },
 
         getWinner: function(user, computer){
-            return checkWin(user, computer);
+            return isWin(user, computer);
         }
     };
-
 })();
-
 
 
 var UIController = (function() {
 
-    var addIcon = function(element, icon){
-        var newElement, image;
+    var displayScore = function(score){
+        document.getElementById('score').innerHTML = score;
+    }
 
-        newElement = document.createElement('span');
-        newElement.className = "image-wrapper";
+    var changeIcon = function(select, element) {
+        var node;
+        node = element.querySelector('.image-wrapper');
+        var img = document.createElement('img');
 
-        image = document.createElement('img');
-
-        if(icon === 'rock'){
-            image.src = "./assets/images/icon-rock.svg";
+        if(select === 'rock'){
+            img.src = "./assets/images/icon-rock.svg";
             element.className = "btn-circle btn-rock";
-
         }
 
-        else if(icon === 'paper'){
-            image.src = "./assets/images/icon-paper.svg";
+        else if(select === 'paper'){
+            img.src = "./assets/images/icon-paper.svg";
             element.className = "btn-circle btn-paper";
         }
 
         else{
-            image.src = "./assets/images/icon-scissors.svg";
+            img.src = "./assets/images/icon-scissors.svg";
             element.className = "btn-circle btn-scissors";
         }
+        node.replaceChild(img, node.firstElementChild);
+    }
 
-        newElement.appendChild(image);
-        element.appendChild(newElement);
+    var displayIcons = function(userSelect, computerSelect) {
+        
+        document.querySelector('main').style.display = 'none';
+        document.querySelector('.selection').style.display = 'flex';
+        
+        var user_select = document.getElementById('user_select');
+        var computer_select = document.getElementById('computer_select');
+
+        changeIcon(userSelect.name, user_select);
+        changeIcon(computerSelect.name, computer_select);
+    }
+
+    var displayWinner = function(win) {
+            
+        if(document.querySelector('.big-text').innerHTML === "It's a TIE") {
+            var newElement;
+            newElement = document.createElement('span');
+            newElement.id = "winner";
+
+            var element = document.querySelector('.big-text');
+            element.innerHTML = "You ";
+            element.appendChild(newElement);
+        }
+
+        if(win === true) {
+            document.getElementById('winner').innerHTML = "win";
+        }
+
+        else if(win === "tie") {
+            document.querySelector('.big-text').innerHTML = "It's a TIE";
+        }
+
+        else {
+            document.getElementById('winner').innerHTML = "lose";
+        }
     }
 
     return {
 
-        displayScore: function(score){
-            document.getElementById('score').innerHTML = score;
+        displayResultPage: function(score, userSelect, computerSelect, win) {
+            displayScore(score);
+            displayIcons(userSelect, computerSelect);
+            displayWinner(win);
         },
-
-
-        displayResultPage: function(userSelect, computerSelect) {
-            var element;
-            document.querySelector('main').style.display = 'none';
-            document.querySelector('.selection').style.display = 'flex';
-
-            // Remove the icon
-            element = document.getElementById('selection');
-            var classList = element.querySelectorAll('.btn-circle');
-            
-            
-            classList.forEach(function(item, index){
-                var toRemove;
-                toRemove = item.querySelector('.image-wrapper');
-                toRemove.remove();
-                
-                if(index === 0){
-                    addIcon(item, userSelect);
-                }
-
-                else if(index === 1){
-                    addIcon(item, computerSelect);
-                }
-            });
-        },
-
-        displayWinner: function(status) {
-
-            if(status !== MatchController.getStatus()[2]){
-                document.getElementById('winner').innerHTML = status;
-            }
-            
-        },
-
 
         displayHome: function() {
             document.querySelector('main').style.display = 'flex';
@@ -153,7 +131,6 @@ var UIController = (function() {
             document.querySelector('.rules-modal').style.display = 'none';
         }
     };
-
 })();
 
 
@@ -182,54 +159,38 @@ var controller = (function(MatchCtrl, UICtrl) {
         document.querySelector('.btn-rules').addEventListener('click', UICtrl.displayRules);
     }
 
-    
     // Random choice for the computer
     var randomSelect = function(){
-        var x = Math.floor(Math.random() * 3); 
-
-        return MatchCtrl.getSelections()[x];
+        var rand = Math.floor(Math.random() * 3); 
+        return MatchCtrl.getSelectByIndex(rand);
     }
 
-
     // Run the game
-    var ctrlMatch = function(userSelect) {
+    var ctrlMatch = function(user) {
+        // 1. Get user select
+        var userSelect = MatchCtrl.getSelectByName(user);
 
-        // 1. Random the computer select
+        // 2. Random the computer select
         var computerSelect = randomSelect();
-        UICtrl.displayResultPage(userSelect, computerSelect);
         
-        // 2. Display the Winner
-        var status = MatchCtrl.getWinner(userSelect, computerSelect);
-        UICtrl.displayWinner(status);
+        // 2. Who is the winner
+        var statusGame = MatchCtrl.getWinner(userSelect, computerSelect);
 
-        // 3. Update and display the score
-        if(status !== MatchController.getStatus()[2]){
-            if(status === MatchController.getStatus()[0]){
-                // Win
-                score++;
-            }
-    
-            else{
-                // Lose
-                if(score !== 0)
-                {
-                    score--;
-                }  
-            } 
+        // 3. Update the score
+        if(statusGame === true) {
+            score++;
         }
 
-        UICtrl.displayScore(score);
+        UICtrl.displayResultPage(score, userSelect, computerSelect, statusGame);
     }
           
     return {
         init: function() {
             console.log('Aplication has started.');
             setupEventListeners();
-            UICtrl.displayScore(0);
         }
     };
 
 })(MatchController, UIController);
-
 
 controller.init();
