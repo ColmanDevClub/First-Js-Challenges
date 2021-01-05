@@ -1,196 +1,175 @@
+var gameStates = {
+  won: "WON",
+  lost: "LOST",
+  tied: "TIED",
+};
 
-var MatchController = (function() {
-
-    var selections = [{
-        name: 'paper',
-        defeatedBy: 'scissors',
-        win: 'rock'
-    },
-    
+var MatchController = (function () {
+  var selections = [
     {
-        name: 'rock',
-        defeatedBy: 'paper',
-        win: 'scissors'
+      name: "paper",
+      defeatedBy: "scissors",
     },
-    
+
     {
-        name: 'scissors',
-        defeatedBy: 'rock',
-        win: 'paper'
-    }];
-    
-    var isWin= function (user, computer){
+      name: "rock",
+      defeatedBy: "paper",
+    },
 
-        if(user.defeatedBy === computer.name){ return false; }
-        else if(user.name === computer.name){ return "tie"; }
-        else { return true; }
-    };
+    {
+      name: "scissors",
+      defeatedBy: "rock",
+    },
+  ];
 
-    return {
-        getSelectByName: function (input){
-            for(var select of selections){
-                if(select.name === input){ return select};
-            }
-        },
+  function gameConclusion(user, computer) {
+    console.log(user, computer);
+    if (user.defeatedBy === computer.name) return gameStates.lost;
+    else if (user.name === computer.name) return gameStates.tied;
+    else return gameStates.won;
+  }
 
-        getSelectByIndex: function (index){
-            return selections[index];
-        },
+  return {
+    getSelectByName: function (input) {
+      return selections.find((option) => option.name === input);
+    },
 
-        getWinner: function(user, computer){
-            return isWin(user, computer);
-        }
-    };
+    getSelectByIndex: function (index) {
+      return selections[index];
+    },
+
+    gameConclusion,
+  };
 })();
 
+var UIController = (function () {
+  var main = document.querySelector("main");
+  var selection = document.querySelector(".selection");
+  var rulesModal = document.querySelector(".rules-modal");
 
-var UIController = (function() {
+  function hideElement(element) {
+    element.style.display = "none";
+  }
+  function showElement(element) {
+    element.style.display = "flex";
+  }
 
-    var displayScore = function(score){
-        document.getElementById('score').innerHTML = score;
-    }
+  var displayScore = function (score) {
+    document.getElementById("score").innerHTML = score;
+  };
 
-    var changeIcon = function(select, element) {
-        var node;
-        node = element.querySelector('.image-wrapper');
-        var img = document.createElement('img');
+  var changeIcon = function (select, element) {
+    var node = element.querySelector(".image-wrapper");
+    var img = document.createElement("img");
 
-        if(select === 'rock'){
-            img.src = "./assets/images/icon-rock.svg";
-            element.className = "btn-circle btn-rock";
-        }
+    img.src = "./assets/images/icon-" + select + ".svg";
+    element.className = "btn-circle btn-" + select;
 
-        else if(select === 'paper'){
-            img.src = "./assets/images/icon-paper.svg";
-            element.className = "btn-circle btn-paper";
-        }
+    node.replaceChild(img, node.firstElementChild);
+  };
 
-        else{
-            img.src = "./assets/images/icon-scissors.svg";
-            element.className = "btn-circle btn-scissors";
-        }
-        node.replaceChild(img, node.firstElementChild);
-    }
+  var displayIcons = function ({ userSelect, computerSelect }) {
+    hideElement(main);
+    showElement(selection);
 
-    var displayIcons = function(userSelect, computerSelect) {
-        
-        document.querySelector('main').style.display = 'none';
-        document.querySelector('.selection').style.display = 'flex';
-        
-        var user_select = document.getElementById('user_select');
-        var computer_select = document.getElementById('computer_select');
+    var userSelectionElement = document.getElementById("user_select");
+    var computerSelectionElement = document.getElementById("computer_select");
 
-        changeIcon(userSelect.name, user_select);
-        changeIcon(computerSelect.name, computer_select);
-    }
+    changeIcon(userSelect.name, userSelectionElement);
+    changeIcon(computerSelect.name, computerSelectionElement);
+  };
 
-    var displayWinner = function(win) {
-            
-        if(document.querySelector('.big-text').innerHTML === "It's a TIE") {
-            var newElement;
-            newElement = document.createElement('span');
-            newElement.id = "winner";
+  var displayResult = function (result) {
+    document.getElementById("winner").innerHTML = result;
+  };
 
-            var element = document.querySelector('.big-text');
-            element.innerHTML = "You ";
-            element.appendChild(newElement);
-        }
+  return {
+    displayResultPage: function (selections, result, score) {
+      displayScore(score);
+      displayIcons(selections);
+      displayResult(result);
+    },
 
-        if(win === true) {
-            document.getElementById('winner').innerHTML = "win";
-        }
+    displayHome: function () {
+      showElement(main);
+      hideElement(selection);
+    },
 
-        else if(win === "tie") {
-            document.querySelector('.big-text').innerHTML = "It's a TIE";
-        }
+    displayRules: function () {
+      showElement(rulesModal);
+    },
 
-        else {
-            document.getElementById('winner').innerHTML = "lose";
-        }
-    }
-
-    return {
-
-        displayResultPage: function(score, userSelect, computerSelect, win) {
-            displayScore(score);
-            displayIcons(userSelect, computerSelect);
-            displayWinner(win);
-        },
-
-        displayHome: function() {
-            document.querySelector('main').style.display = 'flex';
-            document.querySelector('.selection').style.display = 'none';
-        },
-
-
-        displayRules: function() {
-            document.querySelector('.rules-modal').style.display = 'flex';
-        },
-
-        removeRules: function() {
-            document.querySelector('.rules-modal').style.display = 'none';
-        }
-    };
+    removeRules: function () {
+      hideElement(rulesModal);
+    },
+  };
 })();
 
+var MainController = (function (MatchCtrl, UICtrl) {
+  var score = 0;
 
-var controller = (function(MatchCtrl, UICtrl) {
+  function addButtonsFunctionality(btnSelector) {
+    var buttons = document.querySelectorAll(btnSelector);
 
-    var score = 0;
-    
-    var setupEventListeners = function() {
-        // Checks what is the user choice 
-        var buttons = document.querySelectorAll('.btn-circle');
+    buttons.forEach(function (button) {
+      var choice = button.dataset.choice;
 
-        buttons.forEach(function(item){
-            var input = item.dataset.choice;
-            
-            item.addEventListener('click', function(){
-                ctrlMatch(input);
-            });
-        });
+      button.addEventListener("click", function () {
+        startMatch(choice);
+      });
+    });
+  }
 
-        // Back to the home page
-        document.querySelector('.btn').addEventListener('click', UICtrl.displayHome);
+  function addNavigationFunctionality() {
+    document
+      .querySelector(".btn")
+      .addEventListener("click", UICtrl.displayHome);
 
-        document.getElementById('close').addEventListener('click', UICtrl.removeRules);
+    document
+      .getElementById("close")
+      .addEventListener("click", UICtrl.removeRules);
 
-        // Display the rules
-        document.querySelector('.btn-rules').addEventListener('click', UICtrl.displayRules);
+    document
+      .querySelector(".btn-rules")
+      .addEventListener("click", UICtrl.displayRules);
+  }
+
+  function setupEventListeners() {
+    addButtonsFunctionality(".btn-circle");
+
+    addNavigationFunctionality();
+  }
+
+  function randomChoice() {
+    var rand = Math.floor(Math.random() * 3);
+
+    return MatchCtrl.getSelectByIndex(rand);
+  }
+
+  function updateScore(gameStatus) {
+    if (gameStatus === gameStates.won) {
+      score++;
     }
+  }
 
-    // Random choice for the computer
-    var randomSelect = function(){
-        var rand = Math.floor(Math.random() * 3); 
-        return MatchCtrl.getSelectByIndex(rand);
-    }
-
-    // Run the game
-    var ctrlMatch = function(user) {
-        // 1. Get user select
-        var userSelect = MatchCtrl.getSelectByName(user);
-
-        // 2. Random the computer select
-        var computerSelect = randomSelect();
-        
-        // 2. Who is the winner
-        var statusGame = MatchCtrl.getWinner(userSelect, computerSelect);
-
-        // 3. Update the score
-        if(statusGame === true) {
-            score++;
-        }
-
-        UICtrl.displayResultPage(score, userSelect, computerSelect, statusGame);
-    }
-          
-    return {
-        init: function() {
-            console.log('Aplication has started.');
-            setupEventListeners();
-        }
+  var startMatch = function (user) {
+    var selections = {
+      userSelect: MatchCtrl.getSelectByName(user),
+      computerSelect: randomChoice(),
     };
+    var gameStatus = MatchCtrl.gameConclusion(
+      selections.userSelect,
+      selections.computerSelect
+    );
 
+    updateScore(gameStatus);
+
+    UICtrl.displayResultPage(selections, gameStatus, score);
+  };
+
+  return {
+    init: setupEventListeners,
+  };
 })(MatchController, UIController);
 
-controller.init();
+MainController.init();
